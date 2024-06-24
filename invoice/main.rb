@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative './sales_report_generator'
 
 sales_data = [
