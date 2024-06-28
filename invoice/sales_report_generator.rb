@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # sales_report_generator.rb
 require_relative './format_handler'
 require_relative './text_handler'
@@ -14,9 +16,9 @@ class SalesReportGenerator
   def generate_report(format)
     handler = get_handler(format)
     report_data = {
-      total_sales: total_sales,
-      daily_sales: daily_sales,
-      date_range: date_range
+      total_sales:,
+      daily_sales:,
+      date_range:
     }
     handler.handle(report_data)
   end
