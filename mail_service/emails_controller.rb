@@ -6,6 +6,6 @@ class Api::V1::MailService::EmailsController < Api::V1::BaseController
 
     categorized_emails = user.emails.where.not(category: %i[archieved deleted]).catedorized_emails
 
-    render json: Email.format(categorized_emails, :json)
+    render json: Email.format_emails(categorized_emails, :json)
   end
 end

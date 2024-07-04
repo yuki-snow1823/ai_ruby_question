@@ -8,14 +8,14 @@ class Email < ApplicationRecord
 
   scope :latest, ->(limit_count = 5, sort_order = :desc) { order(created_at: sort_order).limit(limit_count) }
 
-  def self.format(emails, ext)
+  def self.format_emails(emails, ext)
     case ext
     when :json
       emails.map do |category, emails|
         {
           category:,
           count: emails.count,
-          emails:
+          emails: emails.map { |email| { id: email.id, subject: email.subject } }
         }
       end
     end
