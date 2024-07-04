@@ -6,7 +6,7 @@ class Email < ApplicationRecord
   enum status: { active: 0, archived: 1, deleted: 2 }
   enum category: { inbox: 0, sent: 1, draft: 2 }
 
-  scope :latest, ->(limit_count = 5, sort_order = :desc) { order(created_at: sort_order).limit(limit_count) }
+  scope :latest, ->(limit) { order(created_at: :desc).limit(limit) }
 
   def self.format_emails(emails, ext)
     case ext
