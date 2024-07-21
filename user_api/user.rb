@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  # 採点
+  # has_secure_password をつけておくべき
+  # あとあるとすればエラーメッセージの国際化とか
+
   validates :username, presence: true, length: { in: 3..20 }, format: { with: /\A[a-zA-Z][a-zA-Z0-9_]*\z/ }
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s.]+\.[^@\s.]+\.edu\z/ }
   validates :password, presence: true, length: { in: 8..30 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,30}\z/ }
