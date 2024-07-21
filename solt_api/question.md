@@ -42,3 +42,27 @@
 - コントローラーでの処理はできるだけ薄くし、ビジネスロジックはモデルやサービスクラスに移動させてください。
 
 実装後、各エンドポイントのテストを作成し、すべての要件が満たされていることを確認してください。
+
+メモ：
+
+```rb
+# app/models/user.rb
+require 'digest'
+
+class User < ApplicationRecord
+  before_save :hash_password
+
+  # パスワードをハッシュ化して保存
+  def hash_password
+    self.password = Digest::SHA256.hexdigest(password) if password.present?
+  end
+
+  # パスワード認証
+  def authenticate(input_password)
+    hashed_input_password = Digest::SHA256.hexdigest(input_password)
+    self.password == hashed_input_password
+  end
+end
+```
+
+基本方針は保存したものとの一致
