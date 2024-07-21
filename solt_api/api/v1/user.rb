@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_secure_password
 
@@ -12,8 +14,9 @@ class User < ApplicationRecord
 
   def password_complexity
     return if password.blank?
-    unless password.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/)
-      errors.add :password, 'must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
-    end
+
+    return if /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.match?(password)
+
+    errors.add :password, 'must include at least one uppercase letter, one lowercase letter, one digit, and one special character'
   end
 end

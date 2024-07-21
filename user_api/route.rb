@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Route
   # config/routes.rb
   namespace :api do

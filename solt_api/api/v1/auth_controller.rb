@@ -1,10 +1,18 @@
+# frozen_string_literal: true
+
 class Api::V1::AuthController < ApplicationController
   def login
-    user = User.find_by(email: login_params[:email])
-    if user && user.authenticate(login_params[:password])
-      token = JWT.encode({ user_id: user.id, exp: 24.hours.from_now.to_i }, Rails.application.credentials.secret_key_base, 'HS256')
-      render json: { token: token }, status: :ok
+    user = User.find_by(email: params[:email])
+    if user&.authenticate(params[:password])
+      if user.locked?
+        render json: { error: 'Your account is locked. Please try again later.' }, status: :unauthorized
+      else
+        token = jwt_encode(user_id: user.id)
+        user.unlock_account
+        render json: { token: }, status: :ok
+      end
     else
+      user&.increment_failed_attempts
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end

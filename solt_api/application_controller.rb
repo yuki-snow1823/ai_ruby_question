@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   SECRET_KEY = Rails.application.credentials.secret_key_base
 
