@@ -5,7 +5,8 @@ class Api::V1::AuthController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       if user.locked?
-        render json: { error: 'Your account is locked. Please try again later.' }, status: :unauthorized
+        render json: { error: 'Your account is locked. Please try again later.' },
+               status: :unauthorized
       else
         token = jwt_encode(user_id: user.id)
         user.unlock_account
