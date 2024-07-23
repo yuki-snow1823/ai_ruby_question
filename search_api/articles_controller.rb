@@ -5,8 +5,14 @@ class ArticlesController < ApplicationController
   MAX_LENGTH = 50
 
   def index
-    return if params[:query].length > MAX_LENGTH
+    query = params[:query]
+    page = params[:page] || DEFAULT_PAGE
+    per_page = params[:per_page] || DEFAULT_PER_PAGE
 
+    if query.present? && query.length > MAX_LENGTH
+      return render json: { error: "Query is too long" }, status: :bad_request
+    end
+    
     articles = Article.search(params[:query]).page(params[:page]).per(10)
     render json: { articles:, total_pages: articles.total_pages, current_page: articles.current_page }
   end
