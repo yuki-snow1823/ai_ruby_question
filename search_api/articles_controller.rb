@@ -12,6 +12,12 @@ class ArticlesController < ApplicationController
     if query.present? && query.length > MAX_LENGTH
       return render json: { error: "Query is too long" }, status: :bad_request
     end
+
+    articles = if query.present?
+      Article.search(query)
+    else
+      Article.all
+    end.page(page).per(per_page)
     
     articles = Article.search(params[:query]).page(params[:page]).per(10)
     render json: { articles:, total_pages: articles.total_pages, current_page: articles.current_page }
