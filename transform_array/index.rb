@@ -9,12 +9,12 @@
 
 def transform_array(arr)
   arr.map do |n|
-    transformed_number = transform_number(n)
+    transformed_number = apply_rules_to_number(n)
     transformed_number > 100 ? transformed_number % 100 : transformed_number
   end
 end
 
-def transform_number(n)
+def apply_rules_to_number(n)
   if n.even? && (n % 5).zero?
     n * 2 + 10
   elsif n.odd? && (n % 5).zero?
