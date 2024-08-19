@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # 仮
 followers = [
   [1, 2],
   [4, 2],
   [2, 4],
-  [3, 4],
+  [3, 4]
 ]
 
 follow_count = followers.map { |follower| follower[1] }
@@ -16,9 +18,7 @@ smallest_key_with_max_count = tally_result.select { |_, count| count == max_coun
 
 puts smallest_key_with_max_count
 
-
 # FB
-
 
 # 以下のフィードバックを提供します：
 
